@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form info template</title>
+    <script src="../JS/vue.js"></script>
+</head>
+<body>
+    <div id = 'root' >
+        <!-- similar with JS 'return false': do not refresh 
+                submit event: no need bind with button otherwise submit twice-->
+        <form @submit.prevent="submit"> 
+            <!-- v-model is for input "value" -->
+            Account: <input type="text" v-model.trim="userInfo.account">
+            <br>
+            <br>
+            Password: <input type="password" v-model = 'userInfo.password'>
+            <br>
+            <br>
+            <!-- for age, number only  -->
+            Age: <input type="number" v-model.number = 'userInfo.age'>
+            <br>
+            <br>
+            Gender:
+                <br>
+                <!-- define as same name for single choice option
+                     v-model for gender but define value seperately -->
+                Male <input type="radio" name="gender" v-model = 'userInfo.gender' value="male" >
+                Female <input type="radio" name="gender" v-model ='userInfo.gender' value ="female">
+            <br> 
+            <br>
+            <!-- checkbox for multiplechoice: define value seperately 
+                set all as a list v-model bind to list name -->
+            Hobby:
+            Study <input type="checkbox" value="study" v-model = 'userInfo.hobby'>   
+            Sing <input type="checkbox" value = 'sing' v-model = 'userInfo.hobby'>    
+            Dance <input type="checkbox" value = 'dance' v-model = 'userInfo.hobby'>
+            <br> 
+            <br>
+            Location:
+            <!-- bond here as total -->
+            <select v-model='userInfo.location'>
+                <!-- no value option as title -->
+                <option value=>Please choose</option>
+                <option value="syd">Sydeny</option>
+                <option value="mel">Melbourn</option>
+                <option value="brisbane">Brisbane</option>
+                <option value="perth">Perth</option>
+            </select>
+            <br>
+            <br>
 
+            Other Info
+            <!-- v-model:value='other' -->
+            <textarea v-model.lazy = 'userInfo.other'></textarea>
+            <br>
+            <br>
+            <!-- if do not define checkbox as a list,return true or false -->
+            <input type="checkbox" v-model='userInfo.read'>I Have Read and <a href="">Accept</a>
+            <br>
+            <button>submit</button>
+
+        </form>
+
+    </div>
+        <script>
+           new Vue({
+            el:'#root',
+            data:{
+                userInfo:{
+                    account:'',
+                    password:'',
+                    age:"",
+                    gender:"",
+                    hobby:[],
+                    location:"",
+                    other:"",
+                    read:""
+  
+                }
+                
+            },
+            methods: {
+                submit(){
+                    console.log(JSON.stringify(this.userInfo))
+                }
+            },
+
+        }) 
+        </script>
+        
+
+   
+    
+</body>
+</html>
